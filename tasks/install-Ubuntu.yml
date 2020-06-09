@@ -1,0 +1,40 @@
+---
+# Add apt_repository
+- name: Add MongoDB key to apt
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: E162F504A20CDF15827F718D4B7C549A058F8B6B
+
+- name: Add Pritunl key to apt
+  apt_key:
+      keyserver: keyserver.ubuntu.com
+      id: 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+
+- name: Add MongoDB repo
+  apt_repository:
+    repo: deb https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.2 multiverse
+    state: present
+
+- name: Add Pritunl repo
+  apt_repository:
+    repo: deb https://repo.pritunl.com/stable/apt focal main 
+    state: present 
+
+- name: Update cache and install Pritunl and MongoDB
+  apt:
+    pkg:
+    - mongodb
+    - pritunl
+    update_cache: yes
+
+- name: Enable and start mongodb
+  service:
+      name: mongodb
+      state: started
+      enabled: yes
+
+- name: Enable and start mongodb
+  service:
+      name: pritunl
+      state: started
+      enabled: yes

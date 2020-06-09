@@ -1,2 +1,6 @@
 ---
 # tasks file for ansible-role-pritunl
+
+# OS install tasks
+- include_tasks: install-Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
